@@ -9,6 +9,7 @@ repositories {
 dependencies {
     testImplementation 'com.codeborne:selenide:7.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'net.datafaker:datafaker:2.5.4'
 }
 
 tasks.withType(JavaCompile) {
