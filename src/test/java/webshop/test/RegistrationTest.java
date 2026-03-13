@@ -2,12 +2,13 @@ package webshop.test;
 
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
+import webshop.BaseTest;
 import webshop.pages.WsWelcomePage;
 
 import static com.codeborne.selenide.Selenide.*;
 import static webshop.config.Config.WEB_SHOP_URL;
 
-public class RegistrationTest {
+public class RegistrationTest extends BaseTest {
 
     private static final Faker faker = new Faker();
 
