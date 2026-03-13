@@ -7,13 +7,16 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'com.codeborne:selenide:7.0.0'
+    testImplementation 'com.codeborne:selenide:7.10.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'net.datafaker:datafaker:2.5.4'
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
 }
 
 test {
@@ -23,5 +26,17 @@ test {
         events "started", "passed", "skipped", "failed"
         exceptionFormat "full"
         showStandardStreams = true
+    }
+}
+
+task positiveTest(type: Test) {
+    useJUnitPlatform {
+        includeTags"positive"
+    }
+}
+
+task negativeTest(type: Test) {
+    useJUnitPlatform {
+        includeTags"negative"
     }
 }

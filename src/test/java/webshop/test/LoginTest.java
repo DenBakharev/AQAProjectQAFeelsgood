@@ -3,6 +3,9 @@ package webshop.test;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import webshop.BaseTest;
 import webshop.pages.WsRegistrationPage;
 import webshop.pages.WsWelcomePage;
 
@@ -10,7 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static webshop.config.Config.WEB_SHOP_REGISTRATION_URL;
 import static webshop.config.Config.WEB_SHOP_URL;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     private static final Faker faker = new Faker();
     private static String password;
@@ -40,5 +43,16 @@ public class LoginTest {
                 .checkRememberMe()
                 .submitLogin()
                 .checkUserLoggedIn(emailAddress);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/email.csv")
+    public void InvalidLoginTest(String email) {
+        open(WEB_SHOP_URL, WsWelcomePage.class)
+                .openLogin()
+                .enterEmail(email)
+                .submitLogin()
+                .checkValidationError();
+
     }
 }

@@ -13,6 +13,7 @@ public class WsLoginPage {
     private final SelenideElement rememberMeButton = $("input#RememberMe");
     private final SelenideElement inputLoginButton = $("input.login-button");
     private final SelenideElement showEmailTitle = $("a[href='/customer/info']");
+    private final SelenideElement errorMassageTitle = $("span.field-validation-error");
 
     public WsLoginPage checkLoginPageOpened() {
         pageTitle.shouldHave(text("Welcome, Please Sign In!"));
@@ -26,6 +27,11 @@ public class WsLoginPage {
         return this;
     }
 
+    public WsLoginPage checkValidationError( ) {
+        errorMassageTitle.shouldHave(text("Please enter a valid email address."));
+
+        return this;
+    }
     public WsLoginPage enterPassword(String password) {
         inputPasswordButton.setValue(password);
 
