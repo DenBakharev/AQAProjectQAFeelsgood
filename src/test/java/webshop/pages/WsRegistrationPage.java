@@ -19,6 +19,7 @@ public class WsRegistrationPage {
     private final SelenideElement checkResultButton = $("div.result");
     private final SelenideElement showEmailButton = $("a[href='/customer/info']");
 
+    @Step("Зарегистровать нового пользователя: Имя - {0}, Фамилия - {1}, Электронная почта - {2}, Пароль - {3} ")
     public WsRegistrationPage register(String firstName, String lastName, String emailAddress, String password) {
         verifyRegistrationOpened()
                 .selectMailGender()
