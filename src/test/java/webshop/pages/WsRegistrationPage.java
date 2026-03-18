@@ -1,6 +1,7 @@
 package webshop.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
@@ -18,6 +19,7 @@ public class WsRegistrationPage {
     private final SelenideElement checkResultButton = $("div.result");
     private final SelenideElement showEmailButton = $("a[href='/customer/info']");
 
+    @Step("Зарегистровать нового пользователя: Имя - {0}, Фамилия - {1}, Электронная почта - {2}, Пароль - {3} ")
     public WsRegistrationPage register(String firstName, String lastName, String emailAddress, String password) {
         verifyRegistrationOpened()
                 .selectMailGender()
@@ -32,60 +34,70 @@ public class WsRegistrationPage {
         return this;
     }
 
+    @Step("Проверить что открылась страница регистрации нового пользователя")
     public WsRegistrationPage verifyRegistrationOpened() {
         pageTitle.shouldHave(text("Register"));
 
         return this;
     }
 
+    @Step("Выбрать пол покупателя")
     public WsRegistrationPage selectMailGender() {
         selectMailRadioButton.click();
 
         return this;
     }
 
+    @Step("Ввести имя покупателя : {0}")
     public WsRegistrationPage enterFirstName(String firstName) {
         firstNameInput.setValue(firstName);
 
         return this;
     }
 
+    @Step("Ввести фамилию покупателя : {0}")
     public WsRegistrationPage enterLastName(String lastName) {
         lastNameInput.setValue(lastName);
 
         return this;
     }
 
+    @Step("Ввести электронную почту : {0}")
     public WsRegistrationPage enterEmail(String email) {
         emailInput.setValue(email);
 
         return this;
     }
 
+    @Step("Ввести пароль : {0}")
     public WsRegistrationPage enterPassword(String password) {
         passwordInput.setValue(password);
 
         return this;
     }
 
+    @Step("Повторно ввести пароль : {0}")
     public WsRegistrationPage confirmPassword(String password) {
         confirmPasswordInput.setValue(password);
 
         return this;
     }
 
+    @Step("Нажать кнопку подтверждения регистрации")
     public WsRegistrationPage submitRegistration() {
         submitRegistrationButton.click();
 
         return this;
     }
 
+    @Step("Проверить что результат регистрации завершился успешно")
     public WsRegistrationPage checkResult() {
         checkResultButton.shouldHave(text("Your registration completed "));
 
         return this;
     }
 
+    @Step("Проверить что отображается указанная при регистрации электронная почта : {0}")
     public WsRegistrationPage checkUserLoggedIn(String emailAddress) {
         showEmailButton.shouldHave(text(emailAddress));
 

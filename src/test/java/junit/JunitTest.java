@@ -32,9 +32,11 @@ public class JunitTest extends BaseTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"Ivan","Petr","Masha"})
+    @Tag("positive")
     void paramTest(String name) {
         System.out.println(name);
     }
+
     @Nested
     public class PositiveTests {
 
@@ -51,12 +53,11 @@ public class JunitTest extends BaseTest {
                     () -> assertNotEquals(1, 2)
             );
 
-
         }
 
         @Test
         @Timeout(5)
-        @Tag("negative")
+        @Tag("positive")
         public void test2() {
             System.out.println("Test2");
         }
@@ -65,14 +66,15 @@ public class JunitTest extends BaseTest {
     @Nested
     public class NegativeTests {
 
-
         @Test
+        @Tag("negative")
         @Disabled("Отключен из-за бага 123")
         public void test1() {
             System.out.println("Test1");
         }
 
         @Test
+        @Tag("negative")
         public void test2() {
             System.out.println("Test2");
         }
