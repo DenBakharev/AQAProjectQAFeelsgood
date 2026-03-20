@@ -5,14 +5,14 @@ plugins {
 
 def allureVersion = "2.32.0"
 
-allure{
-    report{
+allure {
+    report {
         version.set(allureVersion)
     }
-    adapter{
+    adapter {
         aspectjWeaver.set(true)
-        frameworks{
-            junit5{
+        frameworks {
+            junit5 {
                 adapterVersion.set(allureVersion)
             }
         }
@@ -29,6 +29,7 @@ dependencies {
     testImplementation 'net.datafaker:datafaker:2.5.4'
     testImplementation "io.qameta.allure:allure-junit5:$allureVersion"
     testImplementation "io.qameta.allure:allure-selenide:$allureVersion"
+    testImplementation 'org.aeonbits.owner:owner:1.0.12'
 }
 
 tasks.withType(JavaExec) {
@@ -37,12 +38,14 @@ tasks.withType(JavaExec) {
 tasks.withType(Test) {
     systemProperty "file.encoding", "UTF-8"
 }
-tasks.withType(Test) {
-    systemProperty "file.encoding", "UTF-8"
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 test {
     useJUnitPlatform()
+    systemProperty "file.encoding", "UTF-8"
+    systemProperty "run", System.getProperty("run")
 
     testLogging {
         events "started", "passed", "skipped", "failed"
@@ -53,12 +56,14 @@ test {
 
 task positiveTest(type: Test) {
     useJUnitPlatform {
-        includeTags"positive"
+        includeTags "positive"
     }
+    systemProperty "run", System.getProperty("run")
 }
 
 task negativeTest(type: Test) {
     useJUnitPlatform {
-        includeTags"negative"
+        includeTags "negative"
     }
+    systemProperty "run", System.getProperty("run")
 }
