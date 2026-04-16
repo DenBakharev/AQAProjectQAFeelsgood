@@ -24,10 +24,15 @@ public class BaseTest {
         Configuration.browserSize = config.browserSize();
         Configuration.browser = config.browser();
 
-//        Configuration.headless = true;
+        Configuration.headless = true;
+//        if ("remote".equals(config.run())) {
+//            Configuration.remote =
+//                    "https://" + config.selenoidUser() + ":" + config.selenoidPassword() + "@" + config.selenoidUrl();
+//            Configuration.browserCapabilities = getSelenoidChromeOptions();
+//        }
         if ("remote".equals(config.run())) {
-            Configuration.remote =
-                    "https://" + config.selenoidUser() + ":" + config.selenoidPassword() + "@" + config.selenoidUrl();
+            Configuration.remote = "http://" + config.selenoidUrl();
+            Configuration.browser = "chrome";
             Configuration.browserCapabilities = getSelenoidChromeOptions();
         }
 

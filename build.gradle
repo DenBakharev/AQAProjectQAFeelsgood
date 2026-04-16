@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.qameta.allure' version "3.0.2"
+    id 'io.freefair.lombok' version "9.2.0"
 }
 
 def allureVersion = "2.32.0"
@@ -29,7 +30,13 @@ dependencies {
     testImplementation 'net.datafaker:datafaker:2.5.4'
     testImplementation "io.qameta.allure:allure-junit5:$allureVersion"
     testImplementation "io.qameta.allure:allure-selenide:$allureVersion"
+    testImplementation "io.qameta.allure:allure-rest-assured:$allureVersion"
     testImplementation 'org.aeonbits.owner:owner:1.0.12'
+    testImplementation 'io.rest-assured:rest-assured:6.0.0'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.21.2'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
+    testImplementation 'io.qameta.allure:allure-assertj:2.34.0'
+
 }
 
 tasks.withType(JavaExec) {
@@ -46,6 +53,7 @@ test {
     useJUnitPlatform()
     systemProperty "file.encoding", "UTF-8"
     systemProperty "run", System.getProperty("run")
+    maxParallelForks = 5
 
     testLogging {
         events "started", "passed", "skipped", "failed"
@@ -58,6 +66,7 @@ task positiveTest(type: Test) {
     useJUnitPlatform {
         includeTags "positive"
     }
+    maxParallelForks = 5
     systemProperty "run", System.getProperty("run")
 }
 
@@ -65,5 +74,12 @@ task negativeTest(type: Test) {
     useJUnitPlatform {
         includeTags "negative"
     }
+    maxParallelForks = 5
     systemProperty "run", System.getProperty("run")
+}
+
+task apiTest(type: Test) {
+    useJUnitPlatform {
+        includeTags "api"
+    }
 }
