@@ -8,5 +8,5 @@ public class CreateBookingResponse {
 
     @JsonProperty("bookingid")
     private Integer bookingId;
-    private CreateBookingDTO booking;
+    private BookingDTO booking;
 }
