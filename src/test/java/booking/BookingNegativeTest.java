@@ -1,6 +1,6 @@
 package booking;
 
-import booking.dto.CreateBookingDTO;
+import booking.dto.BookingDTO;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ public class BookingNegativeTest extends BaseApiTest{
     @ParameterizedTest()
     @MethodSource("bookingNegativeData")
     @Tag("api")
-    void createBookingNegativeTest(CreateBookingDTO request) {
+    void createBookingNegativeTest(BookingDTO request) {
 
         String response = given()
                 .contentType(ContentType.JSON)
@@ -46,10 +46,10 @@ public class BookingNegativeTest extends BaseApiTest{
         assertThat(response).isNotBlank();// Хотел contains("Bad credentials") сделать, но иногда Internal Server Error прилетает
     }
 
-    static Stream<CreateBookingDTO> bookingNegativeData() {
+    static Stream<BookingDTO> bookingNegativeData() {
         return Stream.of(
 
-                CreateBookingDTO.builder()
+                BookingDTO.builder()
                         .lastname("Petrov")
                         .totalprice(100)
                         .depositpaid(false)
@@ -57,7 +57,7 @@ public class BookingNegativeTest extends BaseApiTest{
                         .additionalneeds("newspaper")
                         .build(),
 
-                CreateBookingDTO.builder()
+                BookingDTO.builder()
                         .firstname("Ivan")
                         .totalprice(100)
                         .depositpaid(false)
@@ -65,7 +65,7 @@ public class BookingNegativeTest extends BaseApiTest{
                         .additionalneeds("newspaper")
                         .build(),
 
-                CreateBookingDTO.builder()
+                BookingDTO.builder()
                         .firstname("Ivan")
                         .lastname("Petrov")
                         .totalprice(-500)
@@ -74,31 +74,31 @@ public class BookingNegativeTest extends BaseApiTest{
                         .additionalneeds("newspaper")
                         .build(),
 
-                CreateBookingDTO.builder()
+                BookingDTO.builder()
                         .firstname("Ivan")
                         .lastname("Petrov")
                         .totalprice(100)
                         .depositpaid(false)
-                        .bookingdates(CreateBookingDTO.BookingDates.builder()
+                        .bookingdates(BookingDTO.BookingDates.builder()
                                 .checkin("не-дата")
                                 .checkout("2026-12-01")
                                 .build())
                         .additionalneeds("newspaper")
                         .build(),
 
-                CreateBookingDTO.builder()
+                BookingDTO.builder()
                         .firstname("Ivan")
                         .lastname("Petrov")
                         .totalprice(100)
                         .depositpaid(false)
-                        .bookingdates(CreateBookingDTO.BookingDates.builder()
+                        .bookingdates(BookingDTO.BookingDates.builder()
                                 .checkin("2026-12-01")
                                 .checkout("2025-12-01")
                                 .build())
                         .additionalneeds("newspaper")
                         .build(),
 
-                CreateBookingDTO.builder()
+                BookingDTO.builder()
                         .totalprice(100)
                         .depositpaid(false)
                         .bookingdates(validDates())
@@ -106,8 +106,8 @@ public class BookingNegativeTest extends BaseApiTest{
                         .build()
         );
     }
-    private static CreateBookingDTO.BookingDates validDates() {
-        return CreateBookingDTO.BookingDates.builder()
+    private static BookingDTO.BookingDates validDates() {
+        return BookingDTO.BookingDates.builder()
                 .checkin("2025-12-01")
                 .checkout("2026-12-01")
                 .build();
