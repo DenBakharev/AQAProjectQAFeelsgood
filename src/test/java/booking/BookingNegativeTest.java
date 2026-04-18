@@ -1,7 +1,12 @@
 package booking;
 
 import booking.dto.BookingDTO;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +22,10 @@ public class BookingNegativeTest extends BaseApiTest{
     @ParameterizedTest()
     @MethodSource("bookingNegativeData")
     @Tag("api")
+    @Epic("Бронирования")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Denis")
+    @DisplayName("Создание бронирования с некорректными данными")
     void createBookingNegativeTest(BookingDTO request) {
 
         String response = given()
@@ -33,6 +42,10 @@ public class BookingNegativeTest extends BaseApiTest{
 
     @Test
     @Tag("api")
+    @Epic("Бронирования")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Denis")
+    @DisplayName("Создание бронирования с некорректными данными(без тела запроса)")
     void createBookingWithoutBodyTest() {
 
         String response = given()
