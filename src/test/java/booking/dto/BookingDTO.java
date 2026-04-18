@@ -1,5 +1,6 @@
 package booking.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Data
@@ -7,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingDTO {
 
     private String firstname;
@@ -22,5 +24,12 @@ public class BookingDTO {
     public static class BookingDates {
         private String checkin;
         private String checkout;
+    }
+
+    public BookingDTO(String firstname, int totalprice, String checkin) {
+        this.firstname = firstname;
+        this.totalprice = totalprice;
+        this.bookingdates= new BookingDates();
+        this.bookingdates.checkin = checkin;
     }
 }
